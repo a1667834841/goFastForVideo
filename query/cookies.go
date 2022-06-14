@@ -1,6 +1,7 @@
 package query
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -20,10 +21,10 @@ func GetCookie(userName, password string) string {
 	reader := strings.NewReader("loginname=" + userName + "&password=" + password)
 	res, err := http.Post(loginUrl, " application/x-www-form-urlencoded", reader)
 	Check(err)
-	// if res.Request.Response != nil {
-	// 	fmt.Println(userName, "登陆失败")
-	// 	panic("登陆失败")
-	// }
+	if res.Request.Response == nil {
+		fmt.Println(userName, "登陆失败")
+		panic("登陆失败")
+	}
 	// fmt.Println(res.Request.Response.Header.Values("Set-Cookie"))
 	setCooikes := res.Request.Response.Header.Values("Set-Cookie")
 

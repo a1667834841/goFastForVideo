@@ -7,6 +7,7 @@ import (
 	"goFastForVideo/study"
 	"math/rand"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -17,15 +18,17 @@ func main() {
 	for _, con := range cons {
 		yearArr := strings.Split(con.Years, ",")
 		myCourses := query.ReadCourses(con.UserName, con.Password, query.GetRes(con.UserName, con.Password, query_url+"/myCourses.asp"))
+		var Wg sync.WaitGroup
 		for k, v := range myCourses {
 			if in(k.Title, yearArr) {
-				study.StartStudy(con.UserName, con.Password, v)
+				study.StartStudy(con.UserName, con.Password, v, Wg)
 			}
 
 		}
+		Wg.Wait()
 		time.Sleep(time.Duration(con.DoneTIme) * time.Second)
 	}
-	study.Wg.Wait()
+
 	fmt.Println("学习结束")
 }
 

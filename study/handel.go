@@ -19,7 +19,7 @@ func init() {
 
 }
 
-func StartStudy(userName string, password string, videos []query.Video, Wg sync.WaitGroup) {
+func StartStudy(userName string, password string, videos []query.Video, Wg *sync.WaitGroup) {
 	fmt.Println("开始学习。。。")
 	for _, video := range videos {
 
@@ -33,7 +33,7 @@ func StartStudy(userName string, password string, videos []query.Video, Wg sync.
 
 }
 
-func learnServer(userName, password string, video query.Video, Wg sync.WaitGroup) {
+func learnServer(userName, password string, video query.Video, Wg *sync.WaitGroup) {
 	client := &http.Client{}
 
 	for {

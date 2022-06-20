@@ -11,8 +11,9 @@ import (
 var query_url = "http://plat.xzjxjy.com"
 
 type Course struct {
-	Title string
-	Url   string
+	Title   string
+	Url     string
+	ExamUrl string
 }
 type Video struct {
 	Title    string
@@ -61,10 +62,15 @@ func ReadCourses(userName string, password string, res *http.Response) map[Cours
 		// fmt.Println(i)
 		href, bool := selection.Attr("href")
 		title := selection.Text()
-		if bool && !strings.Contains(title, "开始考试") {
-			course := Course{Title: title, Url: query_url + "/" + href}
+		course := Course{}
+		if bool && !strings.Contains(title, "开始考试") && !strings.Contains(title, "进入学习") {
+
+			examUrl := strings.Replace("get_exam.asp?"+strings.Split(href, "?")[1], "id", "courseId", 1)
+
+			course = Course{Title: title, Url: query_url + "/" + href, ExamUrl: query_url + "/" + examUrl}
 			myCourses[course] = ReadDetailCourses(userName, password, course)
 		}
+
 	})
 
 	// fmt.Println(myCourses)
@@ -99,7 +105,7 @@ func ReadDetailCourses(userName string, password string, course Course) []Video 
 				kcid := strings.Split(strings.Split(url, "kcid=")[1], "&id")[0]
 				kjid := strings.Split(url, "&id=")[1]
 
-				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "100"}
+				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "1000"}
 				video.Study = GetUserIdAndPlatId(userName, password, query_url+"/"+url, video.Study)
 
 			}

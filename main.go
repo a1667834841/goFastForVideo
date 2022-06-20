@@ -13,7 +13,7 @@ import (
 
 var query_url = "http://plat.xzjxjy.com"
 
-func main() {
+func Main() {
 	var Wg sync.WaitGroup
 	cons := file.ReadSetting()
 	for _, con := range cons {
@@ -24,6 +24,8 @@ func main() {
 			if in(k.Title, yearArr) {
 				study.StartStudy(con.UserName, con.Password, v, &Wg)
 			}
+
+			// 考试
 
 		}
 

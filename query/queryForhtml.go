@@ -105,7 +105,7 @@ func ReadDetailCourses(userName string, password string, course Course) []Video 
 				kcid := strings.Split(strings.Split(url, "kcid=")[1], "&id")[0]
 				kjid := strings.Split(url, "&id=")[1]
 
-				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "1000"}
+				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "80"}
 				video.Study = GetUserIdAndPlatId(userName, password, query_url+"/"+url, video.Study)
 
 			}
@@ -153,11 +153,12 @@ func GetChcode(userName, password, url string) string {
 }
 
 func GetUserIdAndPlatId(userName, password, url string, study Study) Study {
+	// fmt.Println("url:", url)
 	res := GetRes(userName, password, url)
 	doc, _ := goquery.NewDocumentFromResponse(res)
 
-	studyCode := strings.Replace(strings.Replace(doc.Find("script:nth-last-of-type(2)").Last().Text(), "\n", "", -1), "\t", "", -1)
-
+	studyCode := strings.Replace(strings.Replace(doc.Find("script:nth-last-of-type(3)").Last().Text(), "\n", "", -1), "\t", "", -1)
+	// fmt.Println(studyCode)
 	platid := strings.Split(strings.Split(studyCode, "{platid:")[1], ",gcid")[0]
 	userId := UserId
 	study.Platid = platid

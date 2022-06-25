@@ -13,7 +13,7 @@ import (
 
 var query_url = "http://plat.xzjxjy.com"
 
-func Main() {
+func main() {
 	var Wg sync.WaitGroup
 	cons := file.ReadSetting()
 	for _, con := range cons {

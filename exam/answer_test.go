@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-var userName = "320323196910060022"
-var password = "123456"
+var userName = "pxrcl"
+var password = "raoliang820710"
 var query_url = "http://plat.xzjxjy.com"
 
 func TestAnswer(t *testing.T) {

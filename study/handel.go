@@ -38,6 +38,7 @@ func learnServer(userName, password string, video query.Video, Wg *sync.WaitGrou
 
 	for {
 
+		// study := "Action=" + video.Study.Action + "&Platid=" + video.Study.Platid + "&Userid=" + video.Study.Userid + "&kcid=" + video.Study.Courseid + "&kjid=" + video.Study.Coursewareid + "&St=" + video.Study.St + "&chcode=" + video.Study.Chcode
 		study := "Action=" + video.Study.Action + "&Platid=" + video.Study.Platid + "&Userid=" + video.Study.Userid + "&Courseid=" + video.Study.Courseid + "&Coursewareid=" + video.Study.Coursewareid + "&St=" + video.Study.St
 		req, _ := http.NewRequest(http.MethodPost, video.Url, strings.NewReader(study))
 		req.Header.Set("Cookie", query.GetCookie(userName, password))

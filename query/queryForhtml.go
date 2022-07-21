@@ -29,6 +29,7 @@ type Study struct {
 	Courseid     string
 	Coursewareid string
 	St           string
+	Chcode       string
 }
 
 // func Demo() {
@@ -102,6 +103,7 @@ func ReadDetailCourses(userName string, password string, course Course) []Video 
 			url, b := selection.Attr("href")
 			if b {
 				video.Url = "http://app.chinahrt.cn/app/courseware/"
+				// video.Url = "http://plat.xzjxjy.com/learn_server.asp"
 				kcid := strings.Split(strings.Split(url, "kcid=")[1], "&id")[0]
 				kjid := strings.Split(url, "&id=")[1]
 
@@ -158,10 +160,16 @@ func GetUserIdAndPlatId(userName, password, url string, study Study) Study {
 	doc, _ := goquery.NewDocumentFromResponse(res)
 
 	studyCode := strings.Replace(strings.Replace(doc.Find("script:nth-last-of-type(3)").Last().Text(), "\n", "", -1), "\t", "", -1)
+	if !strings.Contains(studyCode, "study") {
+		studyCode = strings.Replace(strings.Replace(doc.Find("script:nth-last-of-type(1)").Last().Text(), "\n", "", -1), "\t", "", -1)
+	}
+
 	// fmt.Println(studyCode)
 	platid := strings.Split(strings.Split(studyCode, "{platid:")[1], ",gcid")[0]
+	chcode := strings.Split(strings.Split(studyCode, ",chcode:")[1], "v:")[0]
 	userId := UserId
 	study.Platid = platid
 	study.Userid = userId
+	study.Chcode = chcode
 	return study
 }

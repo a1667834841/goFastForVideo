@@ -159,7 +159,7 @@ func GetUserIdAndPlatId(userName, password, url string, study Study) Study {
 	res := GetRes(userName, password, url)
 	doc, _ := goquery.NewDocumentFromResponse(res)
 
-	studyCode := strings.Replace(strings.Replace(doc.Find("script:nth-last-of-type(3)").Last().Text(), "\n", "", -1), "\t", "", -1)
+	studyCode := strings.Replace(strings.Replace(doc.Find("script:nth-last-of-type(2)").Last().Text(), "\n", "", -1), "\t", "", -1)
 	if !strings.Contains(studyCode, "study") {
 		studyCode = strings.Replace(strings.Replace(doc.Find("script:nth-last-of-type(1)").Last().Text(), "\n", "", -1), "\t", "", -1)
 	}

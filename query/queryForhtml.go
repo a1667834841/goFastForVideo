@@ -107,7 +107,7 @@ func ReadDetailCourses(userName string, password string, course Course) []Video 
 				kcid := strings.Split(strings.Split(url, "kcid=")[1], "&id")[0]
 				kjid := strings.Split(url, "&id=")[1]
 
-				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "80"}
+				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "40"}
 				video.Study = GetUserIdAndPlatId(userName, password, query_url+"/"+url, video.Study)
 
 			}

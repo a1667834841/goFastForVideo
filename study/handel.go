@@ -13,8 +13,6 @@ import (
 	"github.com/valyala/fastjson"
 )
 
-var chcode = ""
-
 func init() {
 
 }
@@ -56,6 +54,7 @@ func learnServer(userName, password string, video query.Video, Wg *sync.WaitGrou
 
 		if state != 1 {
 			fmt.Println("study:", study, "title:", video.Title, ",msg:", msg)
+			query.RemoveCookie(userName)
 			continue
 		}
 

@@ -18,6 +18,10 @@ var cookieMap = make(map[string]string)
 
 var UserId = ""
 
+func RemoveCookie(userName string) {
+	delete(cookieMap, userName)
+}
+
 func GetCookie(userName, password string) string {
 	// fmt.Println(cookieMap[userName])
 	if "" != cookieMap[userName] {

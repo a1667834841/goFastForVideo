@@ -8,7 +8,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-var query_url = "http://plat.xzjxjy.com"
+var query_url = "https://plat.xzjxjy.com"
 
 type Course struct {
 	Title   string
@@ -54,9 +54,10 @@ func GetRes(userName, password, url string) *http.Response {
 }
 
 func ReadCourses(userName string, password string, res *http.Response) map[Course][]Video {
+	// fmt.Print(res)
 	fmt.Println("开始爬取【" + userName + "】课程爬取...")
 	doc, _ := goquery.NewDocumentFromResponse(res)
-
+	// fmt.Print(doc.Text())
 	myCourses := make(map[Course][]Video)
 
 	doc.Find("ul[class=pxrw] li a").Each(func(i int, selection *goquery.Selection) {
@@ -117,7 +118,7 @@ func ReadDetailCourses(userName string, password string, course Course) []Video 
 			progress := selection.Text()
 			video.Progress = progress
 		})
-
+		fmt.Print(video.Title)
 		videos = append(videos, video)
 	})
 

@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-var query_url = "http://plat.xzjxjy.com"
+var query_url = "https://plat.xzjxjy.com"
 
 func main() {
 	var Wg sync.WaitGroup

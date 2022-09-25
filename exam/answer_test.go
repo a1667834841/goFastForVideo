@@ -10,7 +10,7 @@ import (
 
 var userName = "pxrcl"
 var password = "raoliang820710"
-var query_url = "http://plat.xzjxjy.com"
+var query_url = "https://plat.xzjxjy.com"
 
 func TestAnswer(t *testing.T) {
 	courses := query.ReadCourses(userName, password, query.GetRes(userName, password, query_url+"/myCourses.asp"))

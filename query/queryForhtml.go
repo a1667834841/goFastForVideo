@@ -72,6 +72,7 @@ func ReadCourses(userName string, password string, res *http.Response) map[Cours
 			course = Course{Title: title, Url: query_url + "/" + href, ExamUrl: query_url + "/" + examUrl}
 			myCourses[course] = ReadDetailCourses(userName, password, course)
 		}
+		// fmt.Println(userName, "课程：", title)
 
 	})
 
@@ -118,7 +119,6 @@ func ReadDetailCourses(userName string, password string, course Course) []Video 
 			progress := selection.Text()
 			video.Progress = progress
 		})
-		fmt.Print(video.Title)
 		videos = append(videos, video)
 	})
 

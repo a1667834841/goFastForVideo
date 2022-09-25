@@ -37,7 +37,7 @@ func GetCookie(userName, password string) string {
 	u, _ := url.ParseRequestURI(loginUrl)
 	urlStr := u.String() // "http://127.0.0.1/tpost"
 
-	body, _ := Utf8ToGbk("loginname=" + userName + "&password=" + password + "&submit=登+陆")
+	body := "loginname=" + userName + "&password=" + password + "&submit=登+陆"
 
 	reader := strings.NewReader(body)
 	r, _ := http.NewRequest("POST", urlStr, reader) // URL-encoded payload

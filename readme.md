@@ -2,7 +2,7 @@
 [淮安继续教育](https://github.com/a1667834841/ed)
 
 ## 功能说明
-适合网站[徐州市专业技术人员继续教育网](http://plat.xzjxjy.com/),[呼伦贝尔市专业技术人员继续教育在线学习平台](http://hlbe.chinahrt.cn/area.asp)，指定多个账号，指定年份一键多线程刷课，速度控制在一分钟左右
+适合网站[徐州市专业技术人员继续教育网](http://plat.xzjxjy.com/),[呼伦贝尔市专业技术人员继续教育在线学习平台](http://hlbe.chinahrt.cn/area.asp)，[阿拉善盟专业技术人员继续教育培训网](http://als.chinahrt.cn/login.asp)指定多个账号，指定年份一键多线程刷课，速度控制在一分钟左右
 
 ## 使用说明
 1. 下载文件后，首先在settings excel文件填入需要的信息，填写好之后请检查是否有误，确保账号密码正确，还有年份格式正确，保存excel 。

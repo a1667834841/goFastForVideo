@@ -41,7 +41,10 @@ func learnServer(userName, password string, video query.Video, Wg *sync.WaitGrou
 		req, _ := http.NewRequest(http.MethodPost, video.Url, strings.NewReader(study))
 		req.Header.Set("Cookie", query.GetCookie(userName, password))
 		req.Header.Set("Content-Length", strconv.Itoa(len(study)))
+		req.Header.Set("x-requested-with", "XMLHttpRequest")
+		req.Header.Set("user-agent", "Mozilla/5.0 (Linux; Android 13; LE2110 Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/106.0.5249.126 Mobile Safari/537.36 Html5Plus/1.0")
 		req.Header.Set("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+		req.Header.Set("Host", "app.chinahrt.cn")
 		res, err := client.Do(req)
 		if err != nil {
 			panic(err)

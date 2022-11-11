@@ -16,10 +16,12 @@ type Course struct {
 	ExamUrl string
 }
 type Video struct {
-	Title    string
-	Url      string
-	Progress string
-	Study    Study
+	Title     string
+	Url       string
+	Progress  string
+	OnlineUrl string
+	Id        string
+	Study     Study
 }
 
 type Study struct {
@@ -30,6 +32,7 @@ type Study struct {
 	Coursewareid string
 	St           string
 	Chcode       string
+	Videoid      string
 }
 
 // func Demo() {
@@ -104,10 +107,23 @@ func ReadDetailCourses(userName string, password string, course Course) []Video 
 		selection.Find("p a").Each(func(i int, selection *goquery.Selection) {
 			url, b := selection.Attr("href")
 			if b {
-				video.Url = "http://app.chinahrt.cn/app/courseware/"
+				video.Url = "https://app.chinahrt.cn/app/courseware/"
 				// video.Url = "http://plat.xzjxjy.com/learn_server.asp"
 				kcid := strings.Split(strings.Split(url, "kcid=")[1], "&id")[0]
 				kjid := strings.Split(url, "&id=")[1]
+
+				video.OnlineUrl = "https://als.chinahrt.cn/onlineVideo.asp?kcid=" + kcid + "&id=" + kjid
+
+				// 获取视频id
+				// videoPage := GetRes(userName, password, video.OnlineUrl)
+
+				// videoDoc, _ := goquery.NewDocumentFromResponse(videoPage)
+
+				// vid, vidB := videoDoc.Find("#cc > li:nth-child(1) > a").Attr("vid")
+				// if vidB {
+				// 	fmt.Print(vid)
+				// 	video.Id = vid
+				// }
 
 				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "40"}
 				video.Study = GetUserIdAndPlatId(userName, password, query_url+"/"+url, video.Study)

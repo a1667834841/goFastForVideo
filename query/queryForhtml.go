@@ -125,7 +125,7 @@ func ReadDetailCourses(userName string, password string, course Course) []Video 
 				// 	video.Id = vid
 				// }
 
-				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "40"}
+				video.Study = Study{Action: "studylog", Courseid: kcid, Coursewareid: kjid, St: "100"}
 				video.Study = GetUserIdAndPlatId(userName, password, query_url+"/"+url, video.Study)
 
 			}
@@ -180,6 +180,15 @@ func GetUserIdAndPlatId(userName, password, url string, study Study) Study {
 	if !strings.Contains(studyCode, "study") {
 		studyCode = strings.Replace(strings.Replace(doc.Find("script:nth-last-of-type(1)").Last().Text(), "\n", "", -1), "\t", "", -1)
 	}
+	if !strings.Contains(studyCode, "chcode") {
+		// 赤峰市
+		html, _ := doc.Html()
+		studyCode = "{" + strings.Split(strings.Split(html, "study={")[1], "};")[0] + "}"
+	}
+
+	// fmt.Println(html)
+
+	// studyCode := strings.Replace(strings.Replace(html, "\n", "", -1), "\t", "", -1)
 
 	// fmt.Println(studyCode)
 	platid := strings.Split(strings.Split(studyCode, "{platid:")[1], ",gcid")[0]

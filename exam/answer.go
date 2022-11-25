@@ -184,30 +184,36 @@ func collectionQuestions(resultUrl, userName, password string) []QuestionBank {
 
 // 考试提交
 func examSubmissions(userName, password string, questionForm QuestionForm) (resultUrl string, score string) {
-	var overExamUrl = "http://plat.xzjxjy.com/over_exam.asp"
+	var overExamUrl = "https://plat.xzjxjy.com/over_exam.asp"
 
 	client := &http.Client{}
 
 	// 用url.values方式构造form-data参数
 	// formValues := url.Values{}
-	// formValues.Set("examId", questionForm.ExamId)
-	// formValues.Set("memberId", questionForm.MemberId)
-	// formValues.Set("courseId", questionForm.CourseId)
-	params := "examId=" + questionForm.ExamId + "&memberId=" + questionForm.MemberId + "&courseId=" + questionForm.CourseId
-
-	// 考试信息
-	// 答案
+	// formValues.Add("examId", questionForm.ExamId)
+	// formValues.Add("memberId", questionForm.MemberId)
+	// formValues.Add("courseId", questionForm.CourseId)
 	// for _, ques := range questionForm.ExamQuestionList {
 	// 	if strings.Contains(ques.Answer, "|") {
 	// 		answers := strings.Split(ques.Answer, "|")
 	// 		for _, answer := range answers {
-	// 			formValues.Set(ques.QuestionId, answer)
+	// 			formValues.Add(ques.QuestionId, answer)
 	// 		}
 	// 	} else {
-	// 		formValues.Set(ques.QuestionId, ques.Answer)
+	// 		if "" == ques.Answer {
+	// 			formValues.Add(ques.QuestionId, "0")
+	// 		} else {
+	// 			formValues.Add(ques.QuestionId, ques.Answer)
+	// 		}
+
 	// 	}
 
 	// }
+	// formBytesReader := strings.NewReader(formValues.Encode())
+	// 考试信息
+	// 答案
+	params := "examId=" + questionForm.ExamId + "&memberId=" + questionForm.MemberId + "&courseId=" + questionForm.CourseId
+
 	for _, ques := range questionForm.ExamQuestionList {
 		if strings.Contains(ques.Answer, "|") {
 			answers := strings.Split(ques.Answer, "|")
@@ -215,30 +221,35 @@ func examSubmissions(userName, password string, questionForm QuestionForm) (resu
 				params += "&" + ques.QuestionId + "=" + answer
 			}
 		} else {
-			params += "&" + ques.QuestionId + "=" + ques.Answer
+			if "" == ques.Answer {
+				params += "&" + ques.QuestionId + "=1"
+			} else {
+				params += "&" + ques.QuestionId + "=" + ques.Answer
+			}
+
 		}
 
 	}
-	// formDataStr := formValues.Encode()
+
 	formDataBytes := []byte(params)
 	formBytesReader := bytes.NewReader(formDataBytes)
 
 	req, _ := http.NewRequest("POST", overExamUrl, formBytesReader)
 	req.Header.Set("Cookie", query.GetCookie(userName, password))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Add("Accept", "*/*")
-	req.Header.Add("Cache-Control", "max-age=0")
-	req.Header.Add("Origin", "http://plat.xzjxjy.com")
-	req.Header.Add("Connection", "keep-alive")
-	req.Header.Add("Accept-Language", "zh-CN,zh;q=0.9,zh-TW;q=0.8,en-US;q=0.7,en;q=0.6")
-	req.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36")
+	// req.Header.Add("Origin", "https://plat.xzjxjy.com")
+	req.Header.Add("Host", "plat.xzjxjy.com")
+	// req.Header.Add("Connection", "keep-alive")
+	// req.Header.Add("Accept-Language", "zh-CN,zh;q=0.9,zh-TW;q=0.8,en-US;q=0.7,en;q=0.6")
+	// req.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36")
 	res, _ := client.Do(req)
 	defer res.Body.Close()
-	// contentType := res.Header.Get("Content-Type")
-	// fmt.Println(contentType)
+	contentType := res.Header.Get("Content-Type")
+	fmt.Println(contentType)
 	s, _ := ioutil.ReadAll(res.Body) //把	body 内容读入字符串 s
 	// resBody := transcode.FromString(string(s)).Decode("UTF-8").ToString()
-	resBody := ConvertByte2String(s, GB18030)
+	// resBody := ConvertByte2String(s, GB18030)
+	resBody := ConvertByte2String(s, GB2312)
 	fmt.Println(resBody) //在返回页面中显示内容。
 
 	if strings.Contains(resBody, "请勿非法提交数据") {

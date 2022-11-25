@@ -19,8 +19,8 @@ func init() {
 
 func StartStudy(userName string, password string, videos []query.Video, Wg *sync.WaitGroup) {
 	fmt.Println("开始学习。。。")
-	for _, video := range videos {
 
+	for _, video := range videos {
 		if video.Progress == "100%" {
 			continue
 		}
@@ -65,7 +65,7 @@ func learnServer(userName, password string, video query.Video, Wg *sync.WaitGrou
 
 		if percent == "100%" {
 			fmt.Println("title:", video.Title, " 观看结束，percent:", percent)
-			for i := 0; i < 10; i++ {
+			for i := 0; i < 20; i++ {
 				time.Sleep(100 * time.Millisecond)
 				client.Do(req)
 			}

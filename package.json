@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "compression-webpack-plugin": "^5.0.0"
+  }
+}

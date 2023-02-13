@@ -16,11 +16,13 @@
  ![20220613125249](./img/3.png)
  ![20220613125804](./img/4.png)
 
-**如果帮助到您的话，不介意的话，可以小小的支持下我，您将是我继续努力的动力！**
+**如果帮助到您的话，不介意的话，可以小小的支持下我或者点个star呗，您将是我继续努力的动力！**
 <center class="half">
 <img src="./img/4.jpg" width="400px">
-<img src="./img/5.jpg" width="400px">
 </center>
+
+## 关注公众号【ggball coding】了解更多内容
+![qrcode_for_gh_90d33f368075_258](https://img.ggball.top/picGo/qrcode_for_gh_90d33f368075_258.jpg)
 
 
 

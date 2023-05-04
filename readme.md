@@ -16,11 +16,11 @@
  ![20220613125249](./img/3.png)
  ![20220613125804](./img/4.png)
 
-**如果帮助到您的话，不介意的话，可以小小的支持下我，您将是我继续努力的动力！**
-<center class="half">
-<img src="./img/4.jpg" width="400px">
-<img src="./img/5.jpg" width="400px">
-</center>
+
+
+## 搜题小程序
+本人开发的搜题小程序，免费开放，欢迎大家使用，感谢支持！
+![懒熊搜题小程序](https://tiku.toolkit.show/xcx.jpg)
 
 
 
